@@ -1,4 +1,4 @@
-package com.smartnsoft.weathr.fragment;
+package com.smartnsoft.weathr.feature.about;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

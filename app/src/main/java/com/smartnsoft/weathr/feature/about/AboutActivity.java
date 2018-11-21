@@ -1,9 +1,11 @@
-package com.smartnsoft.weathr;
+package com.smartnsoft.weathr.feature.about;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+
+import com.smartnsoft.weathr.R;
 
 /**
  * @author Ludovic Roland
@@ -24,6 +26,8 @@ public final class AboutActivity
     setSupportActionBar(toolbar);
     getSupportActionBar().setIcon(R.drawable.logo_weathr);
     getSupportActionBar().setDisplayShowTitleEnabled(false);
+    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    getSupportActionBar().setHomeButtonEnabled(true);
   }
 
   @Override

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="City"
+            type="com.smartnsoft.weathr.model.City" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/activity_margin"
+        tools:context=".feature.home.HomeActivity">
+
+        <include
+            android:id="@+id/navigation"
+            layout="@layout/toolbar"
+            bind:secondaryCity="@{City}" />
+
+        <FrameLayout
+            android:id="@+id/content_home"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/navigation">
+            <include
+                android:id="@+id/custom_view"
+                layout="@layout/custom_view" />
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/content_list"
+                android:orientation="horizontal">
+
+                <fragment
+                    android:id="@+id/fragment_list_home"
+                    android:name="com.smartnsoft.weathr.feature.home.HomeListFragment"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+            </LinearLayout>
+        </FrameLayout>
+    </RelativeLayout>
+</layout>

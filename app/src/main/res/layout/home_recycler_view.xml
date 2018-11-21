@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="java.util.Date" />
+
+        <variable
+            name="Forecast"
+            type="com.smartnsoft.weathr.model.Forecast" />
+        <variable
+            name="Home"
+            type="com.smartnsoft.weathr.feature.home.HomeActivity"/>
+    </data>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_margin"
+        android:id="@+id/cardview_home"
+        app:cardCornerRadius="6dp"
+        app:cardElevation="6dp">
+
+        <LinearLayout
+            android:id="@+id/content_weather"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/weather_item_padding">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@{Forecast.newFormatDate(Forecast.date)}"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/weather_text_size" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/weather_image_margin"
+                android:src="@{Forecast.getImage(context,Forecast.type)}" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@{@string/weather_temperature(Forecast.temperatureMax)}"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/weather_temperature_text_size" />
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</layout>

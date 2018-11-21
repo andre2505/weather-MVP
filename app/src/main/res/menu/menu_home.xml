@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/setting"
+        android:title="@string/menu_settings"
+        android:icon="@drawable/ic_nav_gear"
+        app:showAsAction="ifRoom"
+        android:orderInCategory="200">
+    </item>
+    <item
+        android:id="@+id/about"
+        android:icon="@drawable/ic_about"
+        app:showAsAction="ifRoom"
+        android:title="@string/menu_about"
+        android:orderInCategory="300">
+    </item>
+</menu>

@@ -6,6 +6,11 @@
 
 -dontwarn com.fasterxml.**
 -dontwarn com.smartnsoft.weathr.**
+-dontwarn javax.annotation.**
+-dontwarn okhttp3.internal.platform.*
+-dontwarn okio.**
+-dontwarn retrofit2.Platform$Java8
+-dontwarn rx.internal.util.**
 
 -keep class android.support.v4.app.** { *; }
 -keep interface android.support.v4.app.** { *; }
