@@ -1,10 +1,20 @@
 package com.smartnsoft.weathr.feature.home;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -16,6 +26,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.smartnsoft.weathr.feature.about.AboutActivity;
 import com.smartnsoft.weathr.R;
 import com.smartnsoft.weathr.base.mvp.MvpActivity;
@@ -24,6 +35,10 @@ import com.smartnsoft.weathr.model.City;
 import com.smartnsoft.weathr.session.UserSession;
 import com.smartnsoft.weathr.utils.CustomAlerDialog;
 import com.smartnsoft.weathr.utils.Network;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 public class HomeActivity extends MvpActivity<HomePresenter> implements HomeView, DialogInterface.OnClickListener, View.OnClickListener {
 
@@ -46,13 +61,15 @@ public class HomeActivity extends MvpActivity<HomePresenter> implements HomeView
         //initialize toolbar
         setSupportActionBar(activityHomeBinding.navigation.toolbar);
 
-
         //initialize error view
         customTextView = (TextView) activityHomeBinding.customView.findViewById(R.id.custom_text);
         customButton = (Button) activityHomeBinding.customView.findViewById(R.id.custom_button);
         customButton.setVisibility(View.GONE);
         customTextView.setVisibility(View.GONE);
         customButton.setOnClickListener(this);
+
+        //location
+        location();
 
         //fragmentManager to communicate with child fragment
         mFragementListHomeManager = (HomeListFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_list_home);
@@ -142,5 +159,30 @@ public class HomeActivity extends MvpActivity<HomePresenter> implements HomeView
         mAlertParameter.setPositiveButton("OK", this);
         mAlertParameter.setNegativeButton("Fermer", this);
         mAlertDialogParameters = mAlertParameter.show();
+    }
+
+
+    @SuppressLint("MissingPermission")
+    private void location() {
+        // Acquire a reference to the system Location Manager
+
+        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+
+        double longitude = location.getLongitude();
+        double latitude = location.getLatitude();
+
+        try {
+            Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+            List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
+            if (addresses.size() > 0) {
+                Address fetchedAddress = addresses.get(0);
+                String locationUser = fetchedAddress.getAddressLine(0);
+                Log.i("LOCATION", locationUser);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

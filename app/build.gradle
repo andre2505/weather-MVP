@@ -80,4 +80,7 @@ dependencies
 
             compile 'com.google.code.gson:gson:2.8.2'
 
+            compile 'com.google.android.gms:play-services-maps:16.0.0'
+            compile 'com.google.android.gms:play-services-places:16.0.0'
+
         }

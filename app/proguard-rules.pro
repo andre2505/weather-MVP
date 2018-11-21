@@ -25,3 +25,6 @@
 -keep interface android.support.v13.app.** { *; }
 
 -keep class com.smartnsoft.weathr.** { *; }
+
+-keep class com.google.android.gms.** { *; }
+-dontwarn com.google.android.gms.**
