@@ -1,6 +1,7 @@
 # Commentaires personnels
 
 N'hésitez pas à discuter de vos choix techniques ou architecturaux ici.
+PARTIE 1:
 
 Choix technologies pour le dévelppement de l'application :
 
@@ -18,6 +19,9 @@ Type d'architecture:
 
 - Data-binding google : Dans le cadre de cette application, j'ai utilisé le binding google afin de d'afficher les valeurs des models sans passer par le code java qui multiplie les lignes dans l'activité en castant chaque objet de la vue et peut mener à des erreurs.
 
+PARTIE 2.1 :
+
+Création d'un dossier de ressources values-en comportant un fichier xml string avec les mêmes id que le fichier français mais avec la trad correspondante à langue langue
 
 
 
