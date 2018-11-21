@@ -13,7 +13,9 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.smartnsoft.weathr.BuildConfig;
 import com.smartnsoft.weathr.feature.about.AboutActivity;
 import com.smartnsoft.weathr.R;
 import com.smartnsoft.weathr.base.mvp.MvpActivity;
@@ -47,6 +50,11 @@ public class HomeActivity extends MvpActivity<HomePresenter> implements HomeView
     private HomeListFragment mFragementListHomeManager;
     private TextView customTextView;
     private Button customButton;
+    private final static int PERMISSION_REQUEST = 42;
+    private String[] permissions = new String[]{
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION
+    };
 
     @Override
     protected HomePresenter createPresenter() {
@@ -68,6 +76,8 @@ public class HomeActivity extends MvpActivity<HomePresenter> implements HomeView
         customTextView.setVisibility(View.GONE);
         customButton.setOnClickListener(this);
 
+        //permission
+        ActivityCompat.requestPermissions(HomeActivity.this, permissions, PERMISSION_REQUEST);
         //location
         location();
 
@@ -161,11 +171,28 @@ public class HomeActivity extends MvpActivity<HomePresenter> implements HomeView
         mAlertDialogParameters = mAlertParameter.show();
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSION_REQUEST:
+                location();
+                break;
+        }
+    }
+
+    private void location() {
+        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            initLocation();
+        }
+
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
+            initLocation();
+        }
+    }
 
     @SuppressLint("MissingPermission")
-    private void location() {
-        // Acquire a reference to the system Location Manager
-
+    private void initLocation() {
         LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
